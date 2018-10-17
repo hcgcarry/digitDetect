@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{642e7ecd-96d9-472d-aad0-3be1b7d28f91}</ProjectGuid>
+    <ProjectHome />
+    <StartupFile>car.py</StartupFile>
+    <SearchPath />
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <InterpreterId />
+    <InterpreterVersion />
+    <IsWindowsApplication>False</IsWindowsApplication>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+    <PtvsTargetsFile>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets</PtvsTargetsFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="car.jpg" />
+    <Content Include="err.txt" />
+    <Content Include="evpicture\generate\digit\images\0.jpg" />
+    <Content Include="evpicture\generate\digit\images\1.jpg" />
+    <Content Include="evpicture\generate\digit\images\2.jpg" />
+    <Content Include="evpicture\generate\digit\images\3.jpg" />
+    <Content Include="evpicture\generate\digit\images\4.jpg" />
+    <Content Include="evpicture\generate\digit\images\5.jpg" />
+    <Content Include="evpicture\generate\digit\images\6.jpg" />
+    <Content Include="evpicture\generate\digit\images\7.jpg" />
+    <Content Include="evpicture\generate\digit\images\8.jpg" />
+    <Content Include="evpicture\generate\digit\images\9.jpg" />
+    <Content Include="evpicture\generate\digit\images\B.jpg" />
+    <Content Include="evpicture\home.jpg" />
+    <Content Include="evpicture\test2\images.png" />
+    <Content Include="evpicture\test2\jpg1.jpg" />
+    <Content Include="evpicture\test2\jpg2.jpg" />
+    <Content Include="evpicture\test2\jpg3.jpg" />
+    <Content Include="evpicture\test2\jpg4.jpg" />
+    <Content Include="evpicture\test2\jpg5.jpg" />
+    <Content Include="evpicture\test2\jpg6.jpg" />
+    <Content Include="evpicture\test2\jpg7.jpg" />
+    <Content Include="evpicture\test\images.png" />
+    <Content Include="evpicture\test\jpg1.jpg" />
+    <Content Include="evpicture\test\jpg2.jpg" />
+    <Content Include="evpicture\test\jpg3.jpg" />
+    <Content Include="evpicture\test\jpg4.jpg" />
+    <Content Include="evpicture\test\jpg5.jpg" />
+    <Content Include="evpicture\test\jpg6.jpg" />
+    <Content Include="evpicture\test\jpg7.jpg" />
+    <Content Include="evpicture\test\special\19.jpg" />
+    <Content Include="evpicture\test\special\jpg3.jpg" />
+    <Content Include="picture\0.jpg" />
+    <Content Include="picture\1.jpg" />
+    <Content Include="picture\2.jpg" />
+    <Content Include="picture\3.jpg" />
+    <Content Include="picture\4.jpg" />
+    <Content Include="picture\5.jpg" />
+    <Content Include="picture\6.jpg" />
+    <Content Include="picture\7.jpg" />
+    <Content Include="picture\8.jpg" />
+    <Content Include="picture\9.jpg" />
+    <Content Include="picture\img.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="car.py" />
+    <Compile Include="carry.py" />
+    <Compile Include="contour.py" />
+    <Compile Include="conv.py" />
+    <Compile Include="dnn.py" />
+    <Compile Include="dnnmnist.py" />
+    <Compile Include="evpicture\test2\dsamesize.py" />
+    <Compile Include="evpicture\test2\test.py" />
+    <Compile Include="evpicture\test\deleteSameSize.py" />
+    <Compile Include="evpicture\test\dsamesize.py" />
+    <Compile Include="keras\imagetr.py" />
+    <Compile Include="keras\loadmin.py" />
+    <Compile Include="keras\ministKr.py" />
+    <Compile Include="main.py" />
+    <Compile Include="myfun.py" />
+    <Compile Include="productCarPlanet.py" />
+    <Compile Include="readCarSvcModel.py" />
+    <Compile Include="rowMean.py" />
+    <Compile Include="showsubplot.py" />
+    <Compile Include="sklearndnn.py" />
+    <Compile Include="testbinary.py" />
+    <Compile Include="testthinning.py" />
+    <Compile Include="test\binary.py" />
+    <Compile Include="test\rowMean.py" />
+    <Compile Include="thinning.py" />
+    <Compile Include="tracebar.py" />
+    <Compile Include="train\conv.py" />
+    <Compile Include="train\dnn.py" />
+    <Compile Include="train\dnn6and8.py" />
+    <Compile Include="train\svc.py" />
+    <Compile Include="train\test.py" />
+    <Compile Include="train\threeLayerConv.py" />
+    <Compile Include="train\threeLayerConvBn.py" />
+    <Compile Include="train\__init__.py" />
+    <Compile Include="tutorial\addlayer.py" />
+    <Compile Include="tutorial\autoencoder.py" />
+    <Compile Include="tutorial\bnDropout.py" />
+    <Compile Include="tutorial\contour.py" />
+    <Compile Include="tutorial\dnnmnist.py" />
+    <Compile Include="tutorial\dropout.py" />
+    <Compile Include="tutorial\hightline.py" />
+    <Compile Include="tutorial\matmul.py" />
+    <Compile Include="tutorial\plot.py" />
+    <Compile Include="tutorial\tensorboard.py" />
+    <Compile Include="tutorial\test.py" />
+    <Compile Include="tutorial\tracebar.py" />
+    <Compile Include="tutorial\webcam.py" />
+    <Compile Include="tutorial\__init__.py" />
+    <Compile Include="webcam.py" />
+    <Compile Include="__init__.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="evpicture" />
+    <Folder Include="evpicture\generate\" />
+    <Folder Include="evpicture\generate\digit\" />
+    <Folder Include="evpicture\generate\digit\images" />
+    <Folder Include="evpicture\test" />
+    <Folder Include="evpicture\test2" />
+    <Folder Include="evpicture\test\special" />
+    <Folder Include="keras" />
+    <Folder Include="picture" />
+    <Folder Include="test" />
+    <Folder Include="train" />
+    <Folder Include="tutorial" />
+  </ItemGroup>
+  <Import Project="$(PtvsTargetsFile)" Condition="Exists($(PtvsTargetsFile))" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="!Exists($(PtvsTargetsFile))" />
+</Project>

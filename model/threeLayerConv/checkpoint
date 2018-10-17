@@ -1,0 +1,2 @@
+model_checkpoint_path: "/win/code/python/deeplearn/project/model/threeLayerConv/threeLayerConv"
+all_model_checkpoint_paths: "/win/code/python/deeplearn/project/model/threeLayerConv/threeLayerConv"
