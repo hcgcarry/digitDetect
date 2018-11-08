@@ -4,6 +4,7 @@ layer1Output=1024
 layer2Output=512
 layer3Output=256
 layer4Output=64
+prefix_path='D:/code/python/machineLearning/digitDetect'
 #########
 
 import tensorflow as tf
@@ -27,8 +28,8 @@ def readModel(imgInput):
     result=[]
     with tf.Session() as sess:
         #First let's load meta graph and restore weights 
-        saver = tf.train.import_meta_graph('/win/code/python/deeplearn/project/model/{}/{}.meta'.format(save_path,save_path))
-        saver.restore(sess,tf.train.latest_checkpoint('/win/code/python/deeplearn/project/model/{}/'.format(save_path)))
+        saver = tf.train.import_meta_graph('{}/model/{}/{}.meta'.format(prefix_path,save_path,save_path))
+        saver.restore(sess,tf.train.latest_checkpoint('{}/model/{}/'.format(prefix_path,save_path)))
 
         # Now, let's access and create placeholders variables and
         # create feed-dict to feed new data
@@ -180,7 +181,7 @@ if __name__=='__main__':
             print(compute_accuracy(
                 mnist.test.images[:500], mnist.test.labels[:500]))
 
-    saver.save(sess,'/win/code/python/deeplearn/project/model/{}/{}'.format(save_path,save_path))
+    saver.save(sess,'{}/model/{}/{}'.format(prefix_path,save_path,save_path))
 
     finishTime=time.time()
     print('cost time',finishTime-startTime)

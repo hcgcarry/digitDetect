@@ -1,41 +1,10 @@
-from skimage.io import imread
-from skimage.morphology import skeletonize
-from skimage.filters import threshold_otsu
-import matplotlib.pyplot as plt
-import PIL
-from skimage import measure
-from math import sqrt
-import numpy as np
-from skimage.measure import regionprops
-import matplotlib.patches as patches
-from skimage.transform import resize
-import cv2
-import math
-from skimage import data,filters
-import tensorflow as tf
-import warnings
-#from train.conv import readModel
-#from train.threeLayerConv import readModel
-#from train.threeLayerConvBn import readModel
-from train.test import readModel
-#from train.dnn6and8 import readModel
-#from train.dnn import readModel
-from tensorflow.examples.tutorials.mnist import input_data
-from tensorflow.examples.tutorials.mnist import input_data
-from PIL import Image
-from binary import cv2
-#from readCarSvcModel import readModel 
-#from sklearndnn import readModel
+picture_path='evpicture\default'
 
-#from sklearndnn import readModel
-##################parameter
 
 medianTimeBeforeSobel=0
 medianTimeAfterSobel=0
 medianTimeAfterBinary=2
 medianTimeOfSlice=0
-mnist = input_data.read_data_sets('MNIST_data', one_hot=True)
-batch_xs, batch_ys = mnist.train.next_batch(10)
 
 medianSizeBeforeSobel=5
 medianSizeAfterSobel=5
@@ -52,7 +21,40 @@ sobelSize=3
 thresholdRange=5
 imgIndex=15
 
-affineOffset=5
+#affineOffset=5
+####################
+from skimage.io import imread
+from skimage.morphology import skeletonize
+from skimage.filters import threshold_otsu
+import matplotlib.pyplot as plt
+import PIL
+import glob
+from skimage import measure
+from math import sqrt
+import numpy as np
+from skimage.measure import regionprops
+import matplotlib.patches as patches
+from skimage.transform import resize
+import cv2
+import math
+from skimage import data,filters
+import tensorflow as tf
+import warnings
+import heapq
+#from train.conv import readModel
+#from train.threeLayerConv import readModel
+from train.threeLayerConvBn import readModel
+#from train.test import readModel
+#from train.dnn6and8 import readModel
+#from train.dnn import readModel
+from tensorflow.examples.tutorials.mnist import input_data
+from tensorflow.examples.tutorials.mnist import input_data
+from PIL import Image
+#from readCarSvcModel import readModel 
+#from sklearndnn import readModel
+
+#from sklearndnn import readModel
+##################parameter
 
 class Button:
     def __init__(self):
@@ -116,11 +118,11 @@ def showhistogram(images,imagesTitle=None):
     plt.show()
 
 #############################################################################begin
-for programIndex in range(6,imgIndex):
+for imageName in glob.glob('{}/*.jpg'.format(picture_path)):
     #################initial
     affineItemList=[]
     ###########################
-    originImg = cv2.imread("./evpicture/test/ujpeg{}.jpeg".format(programIndex))
+    originImg = cv2.imread(imageName)
     #originImg = cv2.imread("./evpicture/test/images (2).jpeg")
     #originImg = cv2.imread("./evpicture/home.jpg")
     #originImg = cv2.imread("./evpicture/test/jpg{}.jpg".format(programIndex))
@@ -130,14 +132,8 @@ for programIndex in range(6,imgIndex):
     buttonPadding=int(imgWidth/40)
     buttonPadding=0
     rowSumthreshold=0.4
-    #buttonMaxWidth=imgWidth;buttonMinWidth=0
     buttonMaxWidth=imgWidth/3;buttonMinWidth=imgWidth/30
-    #originImg = cv2.imread("./evpicture/home.jpg".format(imgIndex))
     #################################################parameter end
-
-    #img = cv2.imread("./evpicture/1.jpg",0)
-
-
     img= cv2.cvtColor(originImg, cv2.COLOR_BGR2GRAY)
     imgBeforeMedian=img
     ############median before sobel
@@ -315,7 +311,6 @@ for programIndex in range(6,imgIndex):
            gapList.append(gap)
            
     gapList.sort()
-    '''
     ####顯示上面append的那些變化過程再加上原本的圖像
     plt.figure('img')
     plt.imshow(img,cmap='gray')
@@ -325,7 +320,7 @@ for programIndex in range(6,imgIndex):
 
 
     plt.show()
-    '''
+    #############################
     gapCoverCount=[]
 
     for index,item in enumerate(gapList):
@@ -356,7 +351,6 @@ for programIndex in range(6,imgIndex):
 
     #########################################################過濾掉數字鍵的上面or下面那些
     finalButtonList=[]
-    noThresholdButtonList=[]
 
     for index,buttonList in enumerate(buttonListArray):
         print(index,'list##############')
@@ -472,8 +466,8 @@ for programIndex in range(6,imgIndex):
             threshold=threshold_otsu(item)
             ret , item= cv2.threshold(item,threshold,255,cv2.THRESH_BINARY)
             ################affine img
-            min_row=min_row-affineOffset;max_row=max_row+affineOffset
-            min_col=min_col-affineOffset;max_col=max_col+affineOffset
+            #min_row=min_row-affineOffset;max_row=max_row+affineOffset
+            #min_col=min_col-affineOffset;max_col=max_col+affineOffset
             ###如果超出範圍
             '''
             if min_row < 0:

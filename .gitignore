@@ -1,0 +1,6 @@
+phpmyadmin
+.git 
+*.sw?
+.*.sw?
+__pycache__
+
