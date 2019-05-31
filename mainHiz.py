@@ -25,7 +25,6 @@ sobelSizeDuringButtonList=3
 #affineOffset=5
 #121 begin
 ####################
-import sys
 from skimage.io import imread
 from skimage.morphology import skeletonize
 from skimage.filters import threshold_otsu
@@ -44,7 +43,6 @@ from skimage import data,filters
 import tensorflow as tf
 import warnings
 import heapq
-from rotate import rotate
 #from train.conv import readModel
 #from train.threeLayerConv import readModel
 from train.threeLayerConvBn import readModel
@@ -121,33 +119,6 @@ def showhistogram(images,imagesTitle=None):
         plt.title(imagesTitle[index])
     plt.show()
 
-
-def rotate_image(mat, angle):
-    """
-    Rotates an image (angle in degrees) and expands image to avoid cropping
-    """
-
-    height, width = mat.shape[:2] # image shape has 3 dimensions
-    image_center = (width/2, height/2) # getRotationMatrix2D needs coordinates in reverse order (width, height) compared to shape
-
-    rotation_mat = cv2.getRotationMatrix2D(image_center, angle, 1.)
-
-    # rotation calculates the cos and sin, taking absolutes of those.
-    abs_cos = abs(rotation_mat[0,0]) 
-    abs_sin = abs(rotation_mat[0,1])
-
-    # find the new width and height bounds
-    bound_w = int(height * abs_sin + width * abs_cos)
-    bound_h = int(height * abs_cos + width * abs_sin)
-
-    # subtract old image center (bringing image back to origo) and adding the new image center coordinates
-    rotation_mat[0, 2] += bound_w/2 - image_center[0]
-    rotation_mat[1, 2] += bound_h/2 - image_center[1]
-
-    # rotate image with the new bounds and translated rotation matrix
-    rotated_mat = cv2.warpAffine(mat, rotation_mat, (bound_w, bound_h))
-    return rotated_mat
-
 #############################################################################begin
 for imageName in glob.glob("{}/*.jpg".format(picture_path)):
     print(imageName)
@@ -160,19 +131,6 @@ for imageName in glob.glob("{}/*.jpg".format(picture_path)):
     #originImg = cv2.imread("./evpicture/test/jpg{}.jpg".format(programIndex))
     imgWidth=originImg.shape[1]
     imgHeight=originImg.shape[0]
-    argv=sys.argv
-    if len(argv)>1:
-        if argv[1]=="vert":
-            originImg=rotate(originImg,90)
-            tmp=imgWidth
-            imgWidth=imgHeight
-            imgHeight=tmp
-            
-        
-    print("originImg shape",originImg.shape)
-    print("type of originImg",type(originImg))
-    print("imgWidht",imgWidth,"imgHeight",imgHeight)
-
 
     buttonListColPad=0
     buttonListColPad=int(imgWidth/35)
@@ -183,15 +141,13 @@ for imageName in glob.glob("{}/*.jpg".format(picture_path)):
     buttonBiasDown=int(imgWidth/40)
 
     lessButtonListWidth=imgWidth/10
-    lessButtonListWidth=0
-    #print("lessbuttonlistwidth",lessButtonListWidth)
+    print("lessbuttonlistwidth",lessButtonListWidth)
 
     #multiDitHandlerArea=20
 
     #buttonListPadForDilation=int(imgWidth/35)
     rowSumthreshold=0.3
-    buttonMaxWidth=imgWidth/3
-    buttonMinWidth=imgWidth/30
+    buttonMaxWidth=imgWidth/3;buttonMinWidth=imgWidth/30
     #################################################parameter end
     img= cv2.cvtColor(originImg, cv2.COLOR_BGR2GRAY)
     imgBeforeMedian=img
@@ -379,7 +335,7 @@ for imageName in glob.glob("{}/*.jpg".format(picture_path)):
            gapList.append(gap)
            
     gapList.sort()
-    #print("gapList",gapList)
+    print("gapList",gapList)
     ####顯示上面append的那些變化過程再加上原本的圖像
     #plt.imshow(img,cmap="gray")
     #plt.xticks(np.linspace(0,imgWidth,6))
@@ -397,7 +353,7 @@ for imageName in glob.glob("{}/*.jpg".format(picture_path)):
                 count=count+1
         gapCoverCount.append(count)
     
-    #print("gapCovercount",gapCoverCount)
+    print("gapCovercount",gapCoverCount)
                 
     ####找出gapCoverCount陣列裏面質最高的前兩個index
     biggestIndex,secondBigIndex=heapq.nlargest(2,range(len( gapCoverCount)),key=gapCoverCount.__getitem__)
@@ -617,7 +573,7 @@ for imageName in glob.glob("{}/*.jpg".format(picture_path)):
         #一個按鍵裏面連通的region
         digitcount=0
         for index2 ,region in enumerate(regionpropsList):
-            #print("regionpropsList",regionpropsList)
+            print("regionpropsList",regionpropsList)
             #widthBias=int(region_width/8);heightBias=int(region_height/8)
             widthBias=0;heightBias=0
 
@@ -627,15 +583,15 @@ for imageName in glob.glob("{}/*.jpg".format(picture_path)):
             ##origin proportion
             proportion=region_height/region_width
             ##update row and proportion
-            #print("proportion",proportion)
-            #print("area",region.area)
+            print("proportion",proportion)
+            print("area",region.area)
             if multiDitHandlerLowPro< proportion  and multiDitHandlerArea< region.area:
                 regionCordinates=[min_row,max_row,min_col,max_col]
                 regionCordinatesList.append(regionCordinates)
                 digitcount=digitcount+1
             
         #如果因為條件太嚴格所以沒抓到region 就放寬
-        #print("next digit *****************8")
+        print("next digit *****************8")
         if digitcount==0:
             for index2 ,region in enumerate(regionpropsList):
                 #widthBias=int(region_width/8);heightBias=int(region_height/8)
@@ -687,7 +643,7 @@ for imageName in glob.glob("{}/*.jpg".format(picture_path)):
             fbutton.digitListCordinates.append(regionCordinatesList[smallestIndex])
             
         ##################################決定要傳進去被擷取出最後的digit的按鈕
-        #print("digit count ",digitcount)
+        print("digit count ",digitcount)
         
         
         
