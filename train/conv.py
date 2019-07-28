@@ -12,7 +12,7 @@ from tensorflow.examples.tutorials.mnist import input_data
 import numpy as np
 # number 1 to 10 data
 #下面這個配合readmodel
-save_path='conv'
+save_path="conv"
 
 def compute_accuracy(v_xs, v_ys):
     global prediction
@@ -26,11 +26,11 @@ def compute_accuracy(v_xs, v_ys):
 def readModel(imgInput):
     result=[]
     with tf.Session() as sess:
-        #First let's load meta graph and restore weights 
-        saver = tf.train.import_meta_graph('/win/code/python/deeplearn/project/model/{}/{}.meta'.format(save_path,save_path))
-        saver.restore(sess,tf.train.latest_checkpoint('/win/code/python/deeplearn/project/model/{}/'.format(save_path)))
+        #First let"s load meta graph and restore weights 
+        saver = tf.train.import_meta_graph("/win/code/python/deeplearn/project/model/{}/{}.meta".format(save_path,save_path))
+        saver.restore(sess,tf.train.latest_checkpoint("/win/code/python/deeplearn/project/model/{}/".format(save_path)))
 
-        # Now, let's access and create placeholders variables and
+        # Now, let"s access and create placeholders variables and
         # create feed-dict to feed new data
 
 
@@ -55,11 +55,11 @@ def readModel(imgInput):
 def conv2d(x, W):
     # stride [1, x_movement, y_movement, 1]
     # Must have strides[0] = strides[3] = 1
-    return tf.nn.conv2d(x, W, strides=[1, 1, 1, 1], padding='SAME')
+    return tf.nn.conv2d(x, W, strides=[1, 1, 1, 1], padding="SAME")
 
 def max_pool_2x2(x):
     # stride [1, x_movement, y_movement, 1]
-    return tf.nn.max_pool(x, ksize=[1,2,2,1], strides=[1,2,2,1], padding='SAME')
+    return tf.nn.max_pool(x, ksize=[1,2,2,1], strides=[1,2,2,1], padding="SAME")
 
 def normaliztion(data_input):
         fc_mean, fc_var = tf.nn.moments(
@@ -85,12 +85,12 @@ def normaliztion(data_input):
 
 
 
-if __name__=='__main__':
-    mnist = input_data.read_data_sets('MNIST_data', one_hot=True)
+if __name__=="__main__":
+    mnist = input_data.read_data_sets("MNIST_data", one_hot=True)
     # define placeholder for inputs to network
-    xs = tf.placeholder(tf.float32, [None, 784],name='xs')
-    ys = tf.placeholder(tf.float32, [None, 10],name='ys')
-    keep_prob = tf.placeholder(tf.float32,name='keep_prob')
+    xs = tf.placeholder(tf.float32, [None, 784],name="xs")
+    ys = tf.placeholder(tf.float32, [None, 10],name="ys")
+    keep_prob = tf.placeholder(tf.float32,name="keep_prob")
     x_image = tf.reshape(xs, [-1, 28, 28, 1])
     # print(x_image.shape)  # [n_samples, 28,28,1]
 
@@ -118,7 +118,7 @@ if __name__=='__main__':
     W_fc2=tf.Variable(tf.truncated_normal([1024,10], stddev=0.1))
     b_fc2=tf.Variable(tf.constant(0.1, shape=[10]))
     #預測結果
-    prediction = tf.nn.softmax(tf.matmul(h_fc1_drop, W_fc2) + b_fc2,name='prediction')
+    prediction = tf.nn.softmax(tf.matmul(h_fc1_drop, W_fc2) + b_fc2,name="prediction")
 
 
     # the error between prediction and real data
@@ -141,6 +141,6 @@ if __name__=='__main__':
             print(compute_accuracy(
                 mnist.test.images[:300], mnist.test.labels[:300]))
 
-    save_path = saver.save(sess,'/win/code/python/deeplearn/project/model/{}/{}'.format(save_path,save_path))
+    save_path = saver.save(sess,"/win/code/python/deeplearn/project/model/{}/{}".format(save_path,save_path))
 
 

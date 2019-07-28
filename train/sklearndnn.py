@@ -10,17 +10,17 @@ import numpy as np
 from sklearn.datasets import load_digits
 from sklearn.cross_validation import train_test_split
 from sklearn.preprocessing import LabelBinarizer
-save_path='sklearndnn'
+save_path="sklearndnn"
 def readModel(imgInput):
     result=[]
     with tf.Session() as sess:
-        #First let's load meta graph and restore weights 
+        #First let"s load meta graph and restore weights 
         #########要換的時候要改下面這裡
-        saver = tf.train.import_meta_graph('/win/code/python/deeplearn/project/model/%s.meta'%save_path)
+        saver = tf.train.import_meta_graph("/win/code/python/deeplearn/project/model/%s.meta"%save_path)
         #########要換的時候要改下面這裡
-        saver.restore(sess,tf.train.latest_checkpoint('/win/code/python/deeplearn/project/model/'))
+        saver.restore(sess,tf.train.latest_checkpoint("/win/code/python/deeplearn/project/model/"))
 
-        # Now, let's access and create placeholders variables and
+        # Now, let"s access and create placeholders variables and
         # create feed-dict to feed new data
 
 
@@ -113,7 +113,7 @@ def compute_accuracy(v_xs, v_ys):
     result = sess.run(accuracy, feed_dict={xs: v_xs, ys: v_ys,keep_prob:1})
     return result
 
-if __name__=='__main__':
+if __name__=="__main__":
     digits = load_digits()
     X = digits.data
     y = digits.target
@@ -132,9 +132,9 @@ if __name__=='__main__':
     finalInputSize=l2out_size
     dropoutKeep=1
     ######################################placeholder for data inputs 
-    xs = tf.placeholder(tf.float32, [None, l1in_size],name='xs') #8*8 
-    ys = tf.placeholder(tf.float32, [None, 10],name='ys')
-    keep_prob=tf.placeholder(tf.float32,name='keep_prob')
+    xs = tf.placeholder(tf.float32, [None, l1in_size],name="xs") #8*8 
+    ys = tf.placeholder(tf.float32, [None, 10],name="ys")
+    keep_prob=tf.placeholder(tf.float32,name="keep_prob")
 
 
     ############################layer1 
@@ -156,7 +156,7 @@ if __name__=='__main__':
     #prediction = add_layer(layer2, finalInputSize, 10,  activation_function=tf.nn.softmax)#注意最後依從輸出不佳norm
     W_fc2=tf.Variable(tf.truncated_normal([finalInputSize,10], stddev=0.1))
     b_fc2=tf.Variable(tf.constant(0.1, shape=[1,10]))
-    prediction = tf.nn.softmax(tf.matmul(layer2, W_fc2) + b_fc2,name='prediction')
+    prediction = tf.nn.softmax(tf.matmul(layer2, W_fc2) + b_fc2,name="prediction")
 
     ###############################prediction and gradientdescent 
     # the error between prediction and real data
@@ -197,21 +197,21 @@ if __name__=='__main__':
         sess.run(train_step, feed_dict={xs: batch_xs, ys: batch_ys,keep_prob:dropoutKeep})
         if i % 100== 0:
             #test accuracy
-            print(i,'step')
+            print(i,"step")
             trainAccuracy=compute_accuracy(batch_xs,batch_ys)
             testAccuracy=compute_accuracy(X_test,y_test)
             trainAccuracyList.append(trainAccuracy)
             testAccuracyList.append(testAccuracy)
             step.append(i)
 
-            print('train accuracy:',trainAccuracy)
-            print('test accuracy',testAccuracy)
-            print('###############################')
+            print("train accuracy:",trainAccuracy)
+            print("test accuracy",testAccuracy)
+            print("###############################")
 
-    save_path = saver.save(sess,'/win/code/python/deeplearn/project/model/%s'%save_path)
-    plt.figure('accuracy')
-    plt.plot(step,trainAccuracyList,c='b',label='trainAccuracy')
-    plt.plot(step,testAccuracyList,c='r',label='testAccuracy')
-    plt.legend(loc='lower right')
+    save_path = saver.save(sess,"/win/code/python/deeplearn/project/model/%s"%save_path)
+    plt.figure("accuracy")
+    plt.plot(step,trainAccuracyList,c="b",label="trainAccuracy")
+    plt.plot(step,testAccuracyList,c="r",label="testAccuracy")
+    plt.legend(loc="lower right")
     plt.show()
 

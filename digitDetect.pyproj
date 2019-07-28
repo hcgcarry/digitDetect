@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Configuration Condition=" "$(Configuration)" == "" ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{0c77e97f-34d5-4f82-ae96-7c36a7e5ce8c}</ProjectGuid>
     <ProjectHome />
@@ -14,10 +14,10 @@
     <InterpreterId />
     <InterpreterVersion />
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
-  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup Condition=""$(Configuration)" == "Debug"" />
+  <PropertyGroup Condition=""$(Configuration)" == "Release"" />
   <PropertyGroup>
-    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+    <VisualStudioVersion Condition=" "$(VisualStudioVersion)" == "" ">10.0</VisualStudioVersion>
     <PtvsTargetsFile>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets</PtvsTargetsFile>
   </PropertyGroup>
   <ItemGroup>
@@ -107,13 +107,17 @@
     <Content Include="evpicture\test\special\jpg3.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="evpicture\" />
     <Folder Include="evpicture\default" />
+    <Folder Include="evpicture\generate\" />
+    <Folder Include="evpicture\generate\digit\" />
     <Folder Include="evpicture\generate\digit\images" />
     <Folder Include="evpicture\test" />
     <Folder Include="evpicture\test2" />
     <Folder Include="evpicture\test\special" />
     <Folder Include="technology" />
     <Folder Include="train" />
+    <Folder Include="train\tensorboard\" />
     <Folder Include="tutorial" />
   </ItemGroup>
   <Import Project="$(PtvsTargetsFile)" Condition="Exists($(PtvsTargetsFile))" />

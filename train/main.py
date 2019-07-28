@@ -34,7 +34,7 @@ medianTimeBeforeSobel=0
 medianTimeAfterSobel=0
 medianTimeAfterBinary=2
 medianTimeOfSlice=0
-mnist = input_data.read_data_sets('MNIST_data', one_hot=True)
+mnist = input_data.read_data_sets("MNIST_data", one_hot=True)
 batch_xs, batch_ys = mnist.train.next_batch(10)
 
 medianSizeBeforeSobel=5
@@ -97,7 +97,7 @@ def showsubplot(images,imagesTitle=None):
 
     for index in range(len(images)):
         plt.subplot(row,6,index+1)
-        plt.imshow(images[index],cmap='gray')
+        plt.imshow(images[index],cmap="gray")
         
         plt.title(imagesTitle[index])
         #ticks
@@ -150,13 +150,13 @@ for programIndex in range(6,imgIndex):
     x= cv2.Sobel(img,cv2.CV_64F,1,0,ksize=sobelSize)
     y= cv2.Sobel(img,cv2.CV_64F,0,1,ksize=sobelSize)
     sobel=cv2.convertScaleAbs(y) 
-    '''
+    """
     absy=cv2.convertScaleAbs(y) 
     absx=cv2.convertScaleAbs(x)
     sobel=cv2.addWeighted(absx,0.5,absy,0.5,0)
-    plt.imshow(sobel,cmap='gray')
+    plt.imshow(sobel,cmap="gray")
     plt.show()
-    '''
+    """
     x= cv2.Sobel(img,cv2.CV_64F,1,0,ksize=sobelSize)
     y= cv2.Sobel(img,cv2.CV_64F,0,1,ksize=sobelSize)
     absy=cv2.convertScaleAbs(y) 
@@ -167,11 +167,11 @@ for programIndex in range(6,imgIndex):
     rowSum=np.sum(sobel,axis=0)
     rowSumMean=np.mean(rowSum)
     rowSum=rowSum-rowSumMean
-    '''
+    """
     plt.figure()
     plt.plot(np.linspace(0,imgWidth,imgWidth),rowSum)
     plt.show()
-    '''
+    """
     rowSumMax=np.max(rowSum)
     class buttonList:
         sobelImages=[]
@@ -198,7 +198,7 @@ for programIndex in range(6,imgIndex):
         else:
             if rightCol!=0 and buttonMinWidth<=rightCol-leftCol<=buttonMaxWidth:###右邊然後下降
                 buttonListArray.append(buttonList(leftCol-buttonPadding,rightCol+buttonPadding))
-                print('#############append',leftCol,rightCol)
+                print("#############append",leftCol,rightCol)
             count=0;rightCol=0;leftCol=0;
 
     buttonListArrayLen=len(buttonListArray)
@@ -248,25 +248,25 @@ for programIndex in range(6,imgIndex):
         showImages.append(erosion1)
         showImages.append(erosion2)
         #################3######title
-        title='left={},right={}'.format(buttonListArray[index].leftCol,buttonListArray[index].rightCol)
+        title="left={},right={}".format(buttonListArray[index].leftCol,buttonListArray[index].rightCol)
         imagesTitle.append(title)
         #title after median
-        title='median times={}'.format(medianTimeOfSlice)
+        title="median times={}".format(medianTimeOfSlice)
         imagesTitle.append(title)
         #title after binary
-        title='threshold={}'.format(threshold)
+        title="threshold={}".format(threshold)
         imagesTitle.append(title)
         #opening
-        title='dilation1'
+        title="dilation1"
         imagesTitle.append(title)
-        title='erosion1'
+        title="erosion1"
         imagesTitle.append(title)
-        title='erosion2'
+        title="erosion2"
         imagesTitle.append(title)
         #ticks
         #plt.title(title)
         #plt.subplot(1,buttonListArrayLen+subplotLen,2*index+2)
-        #plt.imshow(itemsobel,cmap='gray')
+        #plt.imshow(itemsobel,cmap="gray")
 
         ####################################連通
         label_image = measure.label(erosion2)
@@ -304,7 +304,7 @@ for programIndex in range(6,imgIndex):
                 cordinate=[min_row,max_row]
 
                 buttonListArray[index].button_objects_cordinates.append(cordinate)
-                # let's draw a red rectangle over those regions
+                # let"s draw a red rectangle over those regions
     #####################進接過慮按鍵
     gapList=[]
 
@@ -315,17 +315,17 @@ for programIndex in range(6,imgIndex):
            gapList.append(gap)
            
     gapList.sort()
-    '''
+    """
     ####顯示上面append的那些變化過程再加上原本的圖像
-    plt.figure('img')
-    plt.imshow(img,cmap='gray')
+    plt.figure("img")
+    plt.imshow(img,cmap="gray")
     plt.xticks(np.linspace(0,imgWidth,6))
 
     showsubplot(showImages,imagesTitle)
 
 
     plt.show()
-    '''
+    """
     gapCoverCount=[]
 
     for index,item in enumerate(gapList):
@@ -352,16 +352,16 @@ for programIndex in range(6,imgIndex):
 
 
     #standardGap=gapList[int(len(gapList)/2)]
-    print('############################next img')
+    print("############################next img")
 
     #########################################################過濾掉數字鍵的上面or下面那些
     finalButtonList=[]
     noThresholdButtonList=[]
 
     for index,buttonList in enumerate(buttonListArray):
-        print(index,'list##############')
+        print(index,"list##############")
         button_cordinates_list=buttonListArray[index].button_objects_cordinates
-        print('button_cordinates_list',button_cordinates_list)
+        print("button_cordinates_list",button_cordinates_list)
         rightButtonList=button_cordinates_list.copy()
         for buttonIndex in range(len(button_cordinates_list)):
             #if final button
@@ -370,7 +370,7 @@ for programIndex in range(6,imgIndex):
                         button_cordinates_list[buttonIndex][1]-button_cordinates_list[buttonIndex-1][1]<standardGap-deleteRange:
                     try: 
                         rightButtonList.remove(button_cordinates_list[buttonIndex])
-                        print('delete final button',button_cordinates_list[buttonIndex])
+                        print("delete final button",button_cordinates_list[buttonIndex])
                     except:
                         pass
 
@@ -388,12 +388,12 @@ for programIndex in range(6,imgIndex):
                 if buttonIndex==0:
                     if check==1 and  (gap<standardGap-deleteRange or gap>standardGap+deleteRange):
                         #rightButtonList.remove(button_cordinates_list[buttonIndex])
-                        print('delete first button',button_cordinates_list[buttonIndex])
+                        print("delete first button",button_cordinates_list[buttonIndex])
                     #if check==1 and  (gap<standardGap-deleteRange or gap>standardGap+deleteRange )and standardGap-positionRange <  button_cordinates_list[buttonIndex+2][1]-nextButtonRow <standardGap+positionRange:
                         rightButtonList.remove(button_cordinates_list[buttonIndex])
-                        #print('delete first button',button_cordinates_list[buttonIndex])
+                        #print("delete first button",button_cordinates_list[buttonIndex])
                 ###進階的刪除(可刪除上下多個脫序的情況,但是不一定可以刪掉)
-                '''
+                """
                 else: 
                     ##刪除錯誤的前幾個按鍵 錯誤的式上面的
                     if check==1 and (standardGap+deleteRange<gap or gap<standardGap-deleteRange) and\
@@ -404,7 +404,7 @@ for programIndex in range(6,imgIndex):
                             for wrongButtonIndex in  range(buttonIndex+1):
                                 try:
                                     rightButtonList.remove(button_cordinates_list[wrongButtonIndex])
-                                    print('delete upper button {}'.format(wrongButtonIndex),button_cordinates_list[wrongButtonIndex])
+                                    print("delete upper button {}".format(wrongButtonIndex),button_cordinates_list[wrongButtonIndex])
                                 except:
                                     pass
                         ##刪除錯誤的後幾個按鍵 錯誤的式下面的 
@@ -423,10 +423,10 @@ for programIndex in range(6,imgIndex):
                                 for wrongButtonIndex in  range(buttonIndex+1,len(button_cordinates_list)):
                                     try:
                                         rightButtonList.remove(button_cordinates_list[wrongButtonIndex+1])
-                                        print('delete down button {}'.format(wrongButtonIndex),button_cordinates_list[wrongButtonIndex])
+                                        print("delete down button {}".format(wrongButtonIndex),button_cordinates_list[wrongButtonIndex])
                                     except:
                                         pass
-                '''
+                """
 
 
         rightButtonListLen=len(rightButtonList)
@@ -475,7 +475,7 @@ for programIndex in range(6,imgIndex):
             min_row=min_row-affineOffset;max_row=max_row+affineOffset
             min_col=min_col-affineOffset;max_col=max_col+affineOffset
             ###如果超出範圍
-            '''
+            """
             if min_row < 0:
                 min_row=0
             if max_row > imgHeight:
@@ -487,12 +487,12 @@ for programIndex in range(6,imgIndex):
             affineItem=xySobel[min_row:max_row,min_col:max_col]
 
             affineItem=np.array(affineItem)
-            print('affineitemshape',min_row,max_row,min_col,max_col)
+            print("affineitemshape",min_row,max_row,min_col,max_col)
             #affineItem=cv2.resize(affineItem,(finalImgWidth,finalImgWidth))
             threshold=threshold_otsu(affineItem)
             ret , affineItem= cv2.threshold(affineItem,threshold,255,cv2.THRESH_BINARY)
             affineItemList.append(affineItem)
-            '''
+            """
 
             finalButtonList.append(item)
             rectBorder = patches.Rectangle((min_col, min_row), max_col-min_col, max_row-min_row, edgecolor="red", linewidth=2, fill=False)
@@ -500,9 +500,9 @@ for programIndex in range(6,imgIndex):
             #ax1.add_patch(rectBorder)
     #######################確定的按鍵裡面的處理 (將數字和背景不要的干擾分開)
     #showsubplot(affineItemList)
-    print('@@@@@@@')
-    print('finalbuttonlist pixel max value',np.max(finalButtonList))
-    print('finalButtonList shape',finalButtonList[0].shape)
+    print("@@@@@@@")
+    print("finalbuttonlist pixel max value",np.max(finalButtonList))
+    print("finalButtonList shape",finalButtonList[0].shape)
     totalPixelSum=0
     
     ##判斷這張button以黑為背景還是白
@@ -513,7 +513,7 @@ for programIndex in range(6,imgIndex):
     oneButtonOneDigitList=[]
     ################察看一下mnist裡面的digit屬性
 
-    '''
+    """
     test=[]
     for index , item in enumerate(batch_xs):
         item=np.reshape(item,(finalImgWidth,finalImgWidth))
@@ -522,7 +522,7 @@ for programIndex in range(6,imgIndex):
         test.append(itemThreshold)
     
     finalButtonList=test
-    '''
+    """
     ###############
     titleList=[]
     fbuttonList=[]
@@ -535,7 +535,7 @@ for programIndex in range(6,imgIndex):
         if totalPixelSum > 255*len(finalButtonList)*finalImgOneDimLen/2:
             #除與255是因為uint8 -1 的話位元一齣變成255 所以要處以255讓他變成1
             item=255-item
-            print('conver to white digit')
+            print("conver to white digit")
             hasInvertToWhite=1
             
 
@@ -620,18 +620,18 @@ for programIndex in range(6,imgIndex):
         
 
         fbutton.originButton=item
-        print('item.shape',item.shape)
+        print("item.shape",item.shape)
         fbuttonList.append(fbutton)
     finalButtonList=[]
 
     #loop fbutton 
     for fbuttonIndex,fbutton in enumerate(fbuttonList):
-        print('fbuttonindex',fbuttonIndex)
+        print("fbuttonindex",fbuttonIndex)
         item=fbuttonList[fbuttonIndex].originButton
         ############################################這邊拿fbutton的digitListCordiantes來做for回圈是因為fbuttonList[fbutytonIndex]
         #############################只是單一個按鍵而已，但是digitListCordinates裏面存了一個按鍵裏面多個digit的座標
         for digitIndex,digit in enumerate(fbuttonList[fbuttonIndex].digitListCordinates):
-            print('digitIndex',digitIndex)
+            print("digitIndex",digitIndex)
             digitCordinates=fbuttonList[fbuttonIndex].digitListCordinates[digitIndex]
 
             newImg=np.zeros([finalImgWidth,finalImgWidth])
@@ -666,10 +666,10 @@ for programIndex in range(6,imgIndex):
             
             digitArea=np.sum(newImg,axis=1)
             digitArea=np.sum(digitArea)
-            print('digit area',digitArea)
-            print('prportion',digitHeight/digitWidth)
+            print("digit area",digitArea)
+            print("prportion",digitHeight/digitWidth)
 
-            '''
+            """
 
 
             #erosion
@@ -680,33 +680,33 @@ for programIndex in range(6,imgIndex):
             #opening
             #newImg= cv2.erode(newImg,kernelVertical,iterations=1)
             #newImg= cv2.erode(newImg,kernelHorizational,iterations=1)
-            '''
-            '''
+            """
+            """
             skeletonizeImg=skeletonize(newImg)
             newImg=skeletonizeImg
-            '''
+            """
             
 
             newImg=newImg/255
             newImg=np.reshape(newImg,finalImgOneDimLen)
             fbuttonList[fbuttonIndex].digitImgList.append(newImg)
-            print('newImg.shape',newImg.shape)
+            print("newImg.shape",newImg.shape)
             finalButtonList.append(newImg)
             region=int((digitMaxRow-digitMinRow)*(digitMaxCol-digitMinCol))
             proportion=(digitMaxRow-digitMinRow)/(digitMaxCol-digitMinCol)
 
 
     ####################################
-    '''fbuttonlist 是 fButton的陣列 他主要功能式儲存一個button有多個digit的情況
+    """fbuttonlist 是 fButton的陣列 他主要功能式儲存一個button有多個digit的情況
 
-    mnist = input_data.read_data_sets('MNIST_data', one_hot=True)
+    mnist = input_data.read_data_sets("MNIST_data", one_hot=True)
     batch_xs, batch_ys = mnist.train.next_batch(10)
 
-    '''
-    '''
+    """
+    """
     result=readModel(batch_xs)
     showsubplot(batch_xs,predict)
-    '''
+    """
 
     result=readModel(finalButtonList)
     showsubplot(finalButtonList,result)

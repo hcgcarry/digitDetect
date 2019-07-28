@@ -1,2 +1,2 @@
-model_checkpoint_path: "D:/code/python/machineLearning/digitDetect/model/threeLayerConvBn/threeLayerConvBn"
-all_model_checkpoint_paths: "D:/code/python/machineLearning/digitDetect/model/threeLayerConvBn/threeLayerConvBn"
+model_checkpoint_path: "/win/code/python/machineLearning/digitDetect/model/threeLayerConvBn/threeLayerConvBn"
+all_model_checkpoint_paths: "/win/code/python/machineLearning/digitDetect/model/threeLayerConvBn/threeLayerConvBn"

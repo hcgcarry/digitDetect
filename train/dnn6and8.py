@@ -7,17 +7,17 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 from tensorflow.examples.tutorials.mnist import input_data
 import numpy as np
-save_path='dnn6and8'
+save_path="dnn6and8"
 def readModel(imgInput):
     result=[]
     with tf.Session() as sess:
-        #First let's load meta graph and restore weights 
+        #First let"s load meta graph and restore weights 
         #########要換的時候要改下面這裡
-        saver = tf.train.import_meta_graph('/win/code/python/deeplearn/project/model/{}/{}.meta'.format(save_path,save_path))
+        saver = tf.train.import_meta_graph("/win/code/python/deeplearn/project/model/{}/{}.meta".format(save_path,save_path))
         #########要換的時候要改下面這裡
-        saver.restore(sess,tf.train.latest_checkpoint('/win/code/python/deeplearn/project/model/{}/'.format(save_path)))
+        saver.restore(sess,tf.train.latest_checkpoint("/win/code/python/deeplearn/project/model/{}/".format(save_path)))
 
-        # Now, let's access and create placeholders variables and
+        # Now, let"s access and create placeholders variables and
         # create feed-dict to feed new data
 
 
@@ -116,13 +116,13 @@ def compute_accuracy(v_xs, v_ys):
     result = sess.run(accuracy, feed_dict={xs: v_xs, ys: v_ys,keep_prob:1})
     return result
 
-if __name__=='__main__':
-    mnist = input_data.read_data_sets('MNIST_data', one_hot=True)
+if __name__=="__main__":
+    mnist = input_data.read_data_sets("MNIST_data", one_hot=True)
 
     # define placeholder for inputs to network
-    xs = tf.placeholder(tf.float32, [None, 784],name='xs') # 28x28
-    ys = tf.placeholder(tf.float32, [None, 2],name='ys')
-    keep_prob=tf.placeholder(tf.float32,name='keep_prob')
+    xs = tf.placeholder(tf.float32, [None, 784],name="xs") # 28x28
+    ys = tf.placeholder(tf.float32, [None, 2],name="ys")
+    keep_prob=tf.placeholder(tf.float32,name="keep_prob")
 
     ############################network parameter
     normal=True
@@ -152,7 +152,7 @@ if __name__=='__main__':
     #prediction = add_layer(layer2, finalInputSize, 10,  activation_function=tf.nn.softmax)#注意最後依從輸出不佳norm
     W_fc2=tf.Variable(tf.truncated_normal([finalInputSize,2], stddev=0.1))
     b_fc2=tf.Variable(tf.constant(0.1, shape=[1,2]))
-    prediction = tf.nn.softmax(tf.matmul(layer2, W_fc2) + b_fc2,name='prediction')
+    prediction = tf.nn.softmax(tf.matmul(layer2, W_fc2) + b_fc2,name="prediction")
 
     ###############################prediction and gradientdescent 
     # the error between prediction and real data
@@ -192,24 +192,24 @@ if __name__=='__main__':
 
         #train
         sess.run(train_step, feed_dict={xs: batch_xs, ys: batch_ys,keep_prob:0.5})
-        '''
+        """
         if i % 100== 0:
             #test accuracy
-            print(i,'step')
+            print(i,"step")
             trainAccuracy=compute_accuracy(batch_xs,batch_ys)
             testAccuracy=compute_accuracy(mnist.test.images,mnist.test.labels)
             trainAccuracyList.append(trainAccuracy)
             testAccuracyList.append(testAccuracy)
             step.append(i)
 
-            print('train accuracy:',trainAccuracy)
-            print('test accuracy',testAccuracy)
-            print('###############################')
-        '''
+            print("train accuracy:",trainAccuracy)
+            print("test accuracy",testAccuracy)
+            print("###############################")
+        """
 
-    save_path = saver.save(sess,'/win/code/python/deeplearn/project/model/{}/{}'.format(save_path,save_path))
-    plt.figure('accuracy')
-    plt.plot(step,trainAccuracyList,c='b',label='trainAccuracy')
-    plt.plot(step,testAccuracyList,c='r',label='testAccuracy')
-    plt.legend(loc='lower right')
+    save_path = saver.save(sess,"/win/code/python/deeplearn/project/model/{}/{}".format(save_path,save_path))
+    plt.figure("accuracy")
+    plt.plot(step,trainAccuracyList,c="b",label="trainAccuracy")
+    plt.plot(step,testAccuracyList,c="r",label="testAccuracy")
+    plt.legend(loc="lower right")
     plt.show()

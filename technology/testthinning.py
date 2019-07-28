@@ -2,7 +2,7 @@ from thinning import *
 # the thinning algorithm
 thinned_thresh = bin_thresh.copy()
  
-# if the thinned threshold reaches a steady state, we'll break out of the loop
+# if the thinned threshold reaches a steady state, we"ll break out of the loop
 while 1:
     # make a copy of the thinned threshold array to check for changes
     thresh_copy = thinned_thresh.copy()
@@ -40,7 +40,7 @@ while 1:
     for pixel in pixels_meeting_criteria:
         thinned_thresh[pixel] = 0
  
-    # if the latest iteration didn't make any difference, exit loop
+    # if the latest iteration didn"t make any difference, exit loop
     if np.all(thresh_copy == thinned_thresh) == True:
         break
  
@@ -50,7 +50,7 @@ thresh = (thinned_thresh == 0).astype(np.uint8)
 thresh *= 255
  
 # display original and thinned images
-cv2.imshow('original image', orig_thresh)
-cv2.imshow('thinned image', thresh)
+cv2.imshow("original image", orig_thresh)
+cv2.imshow("thinned image", thresh)
 cv2.waitKey(0)
 cv2.destroyAllWindows()

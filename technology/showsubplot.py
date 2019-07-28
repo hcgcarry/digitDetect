@@ -15,7 +15,7 @@ def showsubplot(images,imagesTitle=None):
             imagesSize=int(sqrt(images.shape[1]))
             images=np.reshape(images,(images.shape[0],imagesSize,imagesSize))
     except:
-        print('reshape has something wrong')
+        print("reshape has something wrong")
     if imagesTitle is None:
         imagesTitle=list(range(len(images)))
     
@@ -23,7 +23,7 @@ def showsubplot(images,imagesTitle=None):
 
     for index in range(len(images)):
         plt.subplot(row,6,index+1)
-        plt.imshow(images[index],cmap='gray')
+        plt.imshow(images[index],cmap="gray")
         
         plt.title(imagesTitle[index])
         #ticks

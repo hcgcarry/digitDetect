@@ -1,5 +1,5 @@
 ######parameter
-save_path='affine'
+save_path="affine"
 layer1Output=1024
 layer2Output=512
 layer3Output=256
@@ -30,11 +30,11 @@ def compute_accuracy(v_xs, v_ys):
 def readModel(imgInput):
     result=[]
     with tf.Session() as sess:
-        #First let's load meta graph and restore weights 
-        saver = tf.train.import_meta_graph('/win/code/python/deeplearn/project/model/{}/{}.meta'.format(save_path,save_path))
-        saver.restore(sess,tf.train.latest_checkpoint('/win/code/python/deeplearn/project/model/{}/'.format(save_path)))
+        #First let"s load meta graph and restore weights 
+        saver = tf.train.import_meta_graph("/win/code/python/deeplearn/project/model/{}/{}.meta".format(save_path,save_path))
+        saver.restore(sess,tf.train.latest_checkpoint("/win/code/python/deeplearn/project/model/{}/".format(save_path)))
 
-        # Now, let's access and create placeholders variables and
+        # Now, let"s access and create placeholders variables and
         # create feed-dict to feed new data
 
 
@@ -59,11 +59,11 @@ def readModel(imgInput):
 def conv2d(x, W):
     # stride [1, x_movement, y_movement, 1]
     # Must have strides[0] = strides[3] = 1
-    return tf.nn.conv2d(x, W, strides=[1, 1, 1, 1], padding='SAME')
+    return tf.nn.conv2d(x, W, strides=[1, 1, 1, 1], padding="SAME")
 
 def max_pool_2x2(x):
     # stride [1, x_movement, y_movement, 1]
-    return tf.nn.max_pool(x, ksize=[1,2,2,1], strides=[1,2,2,1], padding='SAME')
+    return tf.nn.max_pool(x, ksize=[1,2,2,1], strides=[1,2,2,1], padding="SAME")
 
 def normalization(data_input,excu=False):
     if excu==True:
@@ -92,12 +92,12 @@ def normalization(data_input,excu=False):
 
 
 
-if __name__=='__main__':
-    mnist = input_data.read_data_sets('MNIST_data', one_hot=True)
+if __name__=="__main__":
+    mnist = input_data.read_data_sets("MNIST_data", one_hot=True)
     # define placeholder for inputs to network
-    xs = tf.placeholder(tf.float32, [None, 784],name='xs')
-    ys = tf.placeholder(tf.float32, [None, 10],name='ys')
-    keep_prob = tf.placeholder(tf.float32,name='keep_prob')
+    xs = tf.placeholder(tf.float32, [None, 784],name="xs")
+    ys = tf.placeholder(tf.float32, [None, 10],name="ys")
+    keep_prob = tf.placeholder(tf.float32,name="keep_prob")
     x_image = tf.reshape(xs, [-1, 28, 28, 1])
     # print(x_image.shape)  # [n_samples, 28,28,1]
 
@@ -133,14 +133,14 @@ if __name__=='__main__':
     h_fc2_drop = tf.nn.dropout(h_fc2, keep_prob)
 
     ## fc3 layer ##
-    '''
+    """
     W_fc3=tf.Variable(tf.truncated_normal([layer2Output,layer3Output], stddev=0.01))
     b_fc3=tf.Variable(tf.constant(0.1, shape=[layer3Output]))
     # [n_samples, 7, 7, 64] ->> [n_samples, 7*7*64]
     h_fc3 = tf.nn.relu(tf.matmul(h_fc2_drop, W_fc3) + b_fc3)
     h_fc3_drop = tf.nn.dropout(h_fc3, keep_prob)
-    '''
-    '''
+    """
+    """
 
     ## fc4 layer ##
     W_fc4=tf.Variable(tf.truncated_normal([layer3Output,layer4Output], stddev=0.01))
@@ -148,20 +148,20 @@ if __name__=='__main__':
     # [n_samples, 7, 7, 64] ->> [n_samples, 7*7*64]
     h_fc4 = tf.nn.relu(tf.matmul(h_fc3_drop, W_fc4) + b_fc4)
     h_fc4_drop = tf.nn.dropout(h_fc4, keep_prob)
-    '''
+    """
 
     ##############################33333
 
-    '''
+    """
     W_fc3=tf.Variable(tf.truncated_normal([layer2Output,10], stddev=0.01))
     b_fc3=tf.Variable(tf.constant(0.1, shape=[10]))
-    '''
+    """
     W_fc3=tf.Variable(tf.truncated_normal([layer2Output,10], stddev=0.01))
     b_fc3=tf.Variable(tf.constant(0.1, shape=[10]))
 
 
     #預測結果
-    prediction = tf.nn.softmax(tf.matmul(h_fc2_drop, W_fc3) + b_fc3,name='prediction')
+    prediction = tf.nn.softmax(tf.matmul(h_fc2_drop, W_fc3) + b_fc3,name="prediction")
 
 
     # the error between prediction and real data
@@ -205,7 +205,7 @@ if __name__=='__main__':
             affine_batch_ys.append(batch_ys[index])
 
     
-            '''
+            """
             res1 = cv2.warpAffine(item,M2,(rows,cols))
             res1=np.reshape(res1,(28*28))
             affine_batch_xs.append(res1)
@@ -221,12 +221,12 @@ if __name__=='__main__':
             res1=np.reshape(res1,(28*28))
             affine_batch_xs.append(res1)
             affine_batch_ys.append(batch_ys[index])
-            '''
+            """
 
 
         sess.run(train_step, feed_dict={xs: batch_xs, ys: batch_ys, keep_prob: 0.5})
         if i % 100==0:
-            print('compelte one',i)
+            print("compelte one",i)
             affine_batch_xs=np.array(affine_batch_xs)
             affine_batch_ys=np.array(affine_batch_ys)
             sess.run(train_step, feed_dict={xs: affine_batch_xs, ys: affine_batch_ys, keep_prob: 0.5})
@@ -237,9 +237,9 @@ if __name__=='__main__':
             print(compute_accuracy(
                 mnist.test.images[:500], mnist.test.labels[:500]))
 
-    saver.save(sess,'/win/code/python/deeplearn/project/model/{}/{}'.format(save_path,save_path))
+    saver.save(sess,"/win/code/python/deeplearn/project/model/{}/{}".format(save_path,save_path))
 
     finishTime=time.time()
-    print('cost time',finishTime-startTime)
+    print("cost time",finishTime-startTime)
 
 
